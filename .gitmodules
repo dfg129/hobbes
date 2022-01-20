@@ -1,0 +1,3 @@
+[submodule "dynamodb-hobbes"]
+	path = dynamodb-hobbes
+	url = https://github.com/dfg129/dynamodb-hobbes.git
