@@ -1,3 +1,6 @@
 [submodule "dynamodb-hobbes"]
 	path = dynamodb-hobbes
 	url = https://github.com/dfg129/dynamodb-hobbes.git
+[submodule "vpc-hobbes"]
+	path = vpc-hobbes
+	url = https://github.com/dfg129/vpc-hobbes.git
