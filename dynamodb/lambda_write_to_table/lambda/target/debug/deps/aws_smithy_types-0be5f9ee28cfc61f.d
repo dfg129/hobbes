@@ -1,0 +1,11 @@
+/Users/dfg/development/hobbes/dynamodb/lambda_write_to_table/lambda/target/debug/deps/aws_smithy_types-0be5f9ee28cfc61f.rmeta: /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/lib.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/base64.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/date_time/mod.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/date_time/format.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/primitive.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/retry.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/timeout.rs
+
+/Users/dfg/development/hobbes/dynamodb/lambda_write_to_table/lambda/target/debug/deps/aws_smithy_types-0be5f9ee28cfc61f.d: /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/lib.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/base64.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/date_time/mod.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/date_time/format.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/primitive.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/retry.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/timeout.rs
+
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/lib.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/base64.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/date_time/mod.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/date_time/format.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/primitive.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/retry.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-types-0.36.0/src/timeout.rs:

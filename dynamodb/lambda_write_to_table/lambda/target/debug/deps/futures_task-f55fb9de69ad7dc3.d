@@ -1,0 +1,11 @@
+/Users/dfg/development/hobbes/dynamodb/lambda_write_to_table/lambda/target/debug/deps/futures_task-f55fb9de69ad7dc3.rmeta: /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/lib.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/spawn.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/arc_wake.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/waker.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/waker_ref.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/future_obj.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/noop_waker.rs
+
+/Users/dfg/development/hobbes/dynamodb/lambda_write_to_table/lambda/target/debug/deps/futures_task-f55fb9de69ad7dc3.d: /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/lib.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/spawn.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/arc_wake.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/waker.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/waker_ref.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/future_obj.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/noop_waker.rs
+
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/lib.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/spawn.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/arc_wake.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/waker.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/waker_ref.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/future_obj.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-task-0.3.21/src/noop_waker.rs:

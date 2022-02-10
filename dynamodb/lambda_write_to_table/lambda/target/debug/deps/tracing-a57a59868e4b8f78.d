@@ -1,0 +1,13 @@
+/Users/dfg/development/hobbes/dynamodb/lambda_write_to_table/lambda/target/debug/deps/tracing-a57a59868e4b8f78.rmeta: /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/lib.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/macros.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/dispatcher.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/field.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/instrument.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/level_filters.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/span.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/stdlib.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/subscriber.rs
+
+/Users/dfg/development/hobbes/dynamodb/lambda_write_to_table/lambda/target/debug/deps/tracing-a57a59868e4b8f78.d: /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/lib.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/macros.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/dispatcher.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/field.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/instrument.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/level_filters.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/span.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/stdlib.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/subscriber.rs
+
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/lib.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/macros.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/dispatcher.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/field.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/instrument.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/level_filters.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/span.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/stdlib.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/tracing-0.1.30/src/subscriber.rs:

@@ -1,0 +1,10 @@
+/Users/dfg/development/hobbes/dynamodb/lambda_write_to_table/lambda/target/debug/deps/aws_smithy_json-6b18daed8904f620.rmeta: /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/lib.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/deserialize.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/deserialize/error.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/deserialize/token.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/escape.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/serialize.rs
+
+/Users/dfg/development/hobbes/dynamodb/lambda_write_to_table/lambda/target/debug/deps/aws_smithy_json-6b18daed8904f620.d: /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/lib.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/deserialize.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/deserialize/error.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/deserialize/token.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/escape.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/serialize.rs
+
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/lib.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/deserialize.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/deserialize/error.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/deserialize/token.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/escape.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-smithy-json-0.36.0/src/serialize.rs:

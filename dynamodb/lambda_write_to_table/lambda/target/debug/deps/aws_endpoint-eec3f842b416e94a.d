@@ -1,0 +1,7 @@
+/Users/dfg/development/hobbes/dynamodb/lambda_write_to_table/lambda/target/debug/deps/aws_endpoint-eec3f842b416e94a.rmeta: /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-endpoint-0.6.0/src/lib.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-endpoint-0.6.0/src/partition/mod.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-endpoint-0.6.0/src/partition/endpoint.rs
+
+/Users/dfg/development/hobbes/dynamodb/lambda_write_to_table/lambda/target/debug/deps/aws_endpoint-eec3f842b416e94a.d: /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-endpoint-0.6.0/src/lib.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-endpoint-0.6.0/src/partition/mod.rs /Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-endpoint-0.6.0/src/partition/endpoint.rs
+
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-endpoint-0.6.0/src/lib.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-endpoint-0.6.0/src/partition/mod.rs:
+/Users/dfg/.cargo/registry/src/github.com-1ecc6299db9ec823/aws-endpoint-0.6.0/src/partition/endpoint.rs:
