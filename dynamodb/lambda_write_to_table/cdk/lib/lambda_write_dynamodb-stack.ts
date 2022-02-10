@@ -19,7 +19,7 @@ export class LambdaWriteDynamodbStack extends Stack {
       environment: { 
         RUST_BACKTRACE: '1',
       },
-      // logRetention: RetentionDays.ONE_DAY,
+      logRetention: RetentionDays.ONE_DAY,
     });
 
     const dynamodb_write_policy = new PolicyStatement({
