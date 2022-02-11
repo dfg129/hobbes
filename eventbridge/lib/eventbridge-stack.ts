@@ -18,5 +18,6 @@ export class EventbridgeStack extends Stack {
       tier: ssm.ParameterTier.ADVANCED,
       stringValue: bus.eventBusName,
     });
+
   }
 }

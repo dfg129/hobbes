@@ -10,7 +10,6 @@ export class LambdaWriteDynamodbStack extends Stack {
     super(scope, id, props);
 
     let docker_dir = path.join(__dirname, '../../lambda');
-
     
     let write_fn = new lambda.DockerImageFunction(this, 'dynamodb-write-table', {
       description: 'Write to table',
