@@ -1,4 +1,4 @@
-FROM rust:1.58.0 as builder
+FROM rust:latest as builder
 WORKDIR /usr/src/dynamodb
 COPY . .
 RUN cargo install --path .

@@ -26,15 +26,15 @@ async fn handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
     let s3_client = aws_sdk_s3::Client::new(&config);
     let ssm_client = aws_sdk_ssm::Client::new(&config);
 
-    let bucket_name =  "test".to_string();  //get_bucket_name(&ssm_client);
+    let bucket_name =  get_bucket_name(&ssm_client).await.unwrap();
     let key = "DataFile.csv";
 
-    get_object(&s3_client, &bucket_name, key);
-
+    let file = get_object(&s3_client, &bucket_name, key);
 
     Ok(json!({"message": format!("Hey now {}", "hobbes")}))
 }
 
+// get s3 file object to parse 
 async fn get_object(client: &Client, bucket: &str, key: &str) -> Result<(), Error> {
     let resp = client.get_object().bucket(bucket).key(key).send().await?;
     let data = resp.body.collect().await;
@@ -42,10 +42,17 @@ async fn get_object(client: &Client, bucket: &str, key: &str) -> Result<(), Erro
     Ok(())
 }
 
-fn get_bucket_name(client: &aws_sdk_ssm::Client) -> Result<(), Error> {
-    let resp = client.get_parameter().name("DatafilesBucket");
-    info!("[get-bucket-name] : response is {:?}", resp);
+async fn get_bucket_name(client: &aws_sdk_ssm::Client) -> Option<String> {
+    let resp = client.get_parameter().name("DatafilesBucket").send().await;
+    let name_opt = resp.unwrap();
+    let param_opt = name_opt.parameter;
 
-    Ok(())
+    let param = param_opt.unwrap();
+   
+    let name = param.value().unwrap();
+
+    info!("[get-bucket-name] : response is {:?}", name );
+
+    Some(name.to_string())
 }
 
