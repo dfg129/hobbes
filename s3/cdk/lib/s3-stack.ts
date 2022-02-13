@@ -19,17 +19,16 @@ export class S3Stack extends Stack {
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
-     // bucketName: 'DatafilesBucket',
     });
 
-    new ssm.StringParameter(this, 'HobbesEventBus', {
+    let parameter = new ssm.StringParameter(this, 'HobbesEventBus', {
       allowedPattern:'.*',
       description: 'Datafiles bucket name',
       parameterName: 'DatafilesBucket',
       tier: ssm.ParameterTier.ADVANCED,
       stringValue: dataBucket.bucketName,
     });
-
+    
     const policyResult = dataBucket.addToResourcePolicy(new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
       principals: [new iam.AccountPrincipal(this.account)],
@@ -53,6 +52,8 @@ export class S3Stack extends Stack {
           },
           logRetention: RetentionDays.ONE_DAY,
     });
+
+    parameter.grantRead(split_file_fn);
 
     dataBucket.addEventNotification(s3.EventType.OBJECT_CREATED, new s3n.LambdaDestination(split_file_fn), {prefix: '*'});
  }
