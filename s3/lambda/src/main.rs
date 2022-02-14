@@ -1,3 +1,4 @@
+use aws_smithy_http::byte_stream::AggregatedBytes;
 use lambda_runtime::{service_fn, LambdaEvent, Error};
 use serde_json::{json, Value};
 use tracing::info;
@@ -29,17 +30,23 @@ async fn handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
     let bucket_name =  get_bucket_name(&ssm_client).await.unwrap();
     let key = "DataFile.csv";
 
-    let file = get_object(&s3_client, &bucket_name, key);
+    let file = get_object(&s3_client, &bucket_name, key).await?;
+
+    info!("[handler-fn] : Read the s3 object {:?}", file);
+
 
     Ok(json!({"message": format!("Hey now {}", "hobbes")}))
 }
 
 // get s3 file object to parse 
-async fn get_object(client: &Client, bucket: &str, key: &str) -> Result<(), Error> {
+async fn get_object(client: &Client, bucket: &str, key: &str) -> Result<AggregatedBytes, Error> {
     let resp = client.get_object().bucket(bucket).key(key).send().await?;
     let data = resp.body.collect().await;
-    info!("[get_object-fn] : data is {:?}", &data);
-    Ok(())
+
+    let buffer = data.unwrap();
+    
+    info!("[get_object-fn] : data is {:?}", &buffer);
+    Ok(buffer)
 }
 
 async fn get_bucket_name(client: &aws_sdk_ssm::Client) -> Option<String> {

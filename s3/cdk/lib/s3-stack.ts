@@ -54,7 +54,8 @@ export class S3Stack extends Stack {
     });
 
     parameter.grantRead(split_file_fn);
-
+    dataBucket.grantRead(split_file_fn);
+    
     dataBucket.addEventNotification(s3.EventType.OBJECT_CREATED, new s3n.LambdaDestination(split_file_fn), {prefix: '*'});
  }
 }
