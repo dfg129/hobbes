@@ -14,9 +14,13 @@ import { CfnDisk } from 'aws-cdk-lib/aws-lightsail';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
 
 
+const S3_ACCESS_POINT_NAME = 'read-data-object';
+
 export class S3Stack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
+
+    const accessPoint = `arn:aws:s3:${Aws.REGION}:${Aws.ACCOUNT_ID}:accesspoint/${S3_ACCESS_POINT_NAME}`;
 
     const dataBucket = new s3.Bucket(this, 'DatafileBucket', {
       encryption: s3.BucketEncryption.S3_MANAGED,
@@ -72,6 +76,8 @@ export class S3Stack extends Stack {
       effect: iam.Effect.ALLOW,
       actions: ['s3:GetObject'],
       principals: [ new iam.ArnPrincipal(<string>split_file_fn.role?.roleArn) ],
+      resources: [`${accessPoint}/object/*`]
+      //resources: [`${dataBucket.bucketArn}`, `${dataBucket.bucketArn}/*`],
     });
       
     policyStatement.sid = 'AllowLambdaToUseAccessPoint';
@@ -79,10 +85,11 @@ export class S3Stack extends Stack {
 
     const s3AccessPnt = new s3.CfnAccessPoint(this, 's3AccessPnt', {
       bucket: dataBucket.bucketName,
-      policy: policyDoc,
+      name: S3_ACCESS_POINT_NAME,
+    //  policy: policyDoc,
     });
 
-    let accessPntName = s3AccessPnt.name!;
+    let accessPntName = accessPoint; //s3AccessPnt.name!;
 
     if (accessPntName != null) {
       const objectLambdaPnt = new s3objectlambda.CfnAccessPoint(this, 's3ObjectLambdaPnt', {
@@ -99,17 +106,6 @@ export class S3Stack extends Stack {
         }
       });
 
-    // let contentTransformer = split_file_fn.functionArn;
-    
-    // let ObjectLambdaConfigurationProperty: s3objectlambda.CfnAccessPoint.ObjectLambdaConfigurationProperty = {
-    //   supportingAccessPoint: s3accesspnt.name!,
-    //   transformationConfigurations: [{
-    //     actions: ['GetObject'],
-    //     contentTransformation: contentTransformer,
-    //   }],
-    //   allowedFeatures: ['GetObject-Range'],
-    // };
-
     dataBucket.addEventNotification(s3.EventType.OBJECT_CREATED, new s3n.LambdaDestination(split_file_fn), {prefix: '*'});
 
     new CfnOutput(this, 'testBucketArn', { value: dataBucket.bucketArn });
@@ -118,6 +114,6 @@ export class S3Stack extends Stack {
     new CfnOutput(this, 'objectLambdaPntUrl', { 
       value: `https://console.aws.amazon.com/s3/olap/${Aws.ACCOUNT_ID}/${objectLambdaPnt.name}?region=${Aws.REGION}`
     });
-   }
+    }   
   }
 }
