@@ -5,6 +5,7 @@ use tracing::info;
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::Client;
 
+
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt()
@@ -21,6 +22,19 @@ async fn main() -> Result<(), Error> {
 
 async fn handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
     info!("[handler-fn] : event is {:?}", event);
+
+    let (event, _context) = event.into_parts();
+    //let eventObjectContext = event["getObjectContext"].unwrap_or("ErrorObjCon");
+    let s3_url = event["inputS3Url"].as_str().unwrap_or("Errors3Url");
+
+    info!("handler-fn] : s3_url is {:?}", s3_url);
+
+    let body = reqwest::get(s3_url)
+        .await?
+        .text()
+        .await?;
+
+    info!("[handler-fn] : body is {:?}", body);
 
     let region_provider = RegionProviderChain::default_provider().or_else("us-east-1");
     let config = aws_config::from_env().region(region_provider).load().await;
