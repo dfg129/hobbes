@@ -49,7 +49,7 @@ export class S3Stack extends Stack {
       resources: [`${dataBucket.bucketArn}/*`],
     }));
     
-    let docker_dir = path.join(__dirname, '../../lambda');
+    let docker_dir = path.join(__dirname, '../../lambdas/on_upload_event');
 
     let split_file_fn = new lambda.DockerImageFunction(this, 'SplitFileLambda', {
           code: lambda.DockerImageCode.fromImageAsset(docker_dir),
@@ -62,14 +62,18 @@ export class S3Stack extends Stack {
           logRetention: RetentionDays.ONE_DAY,
     });
 
+    parameter.grantRead(split_file_fn);
+    dataBucket.grantRead(split_file_fn);
+
+    dataBucket.addEventNotification(s3.EventType.OBJECT_CREATED_PUT, new s3n.LambdaDestination(split_file_fn));
+
     split_file_fn.addToRolePolicy(new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
       resources: ["*"],
-      actions: ['s3-object-lambda:WriteGetObjectResponse'],
+      actions: [
+        's3:GetObject',
+        's3-object-lambda:WriteGetObjectResponse'],
     }));
-
-    parameter.grantRead(split_file_fn);
-    dataBucket.grantRead(split_file_fn);
 
     const policyDoc = new iam.PolicyDocument();
     const policyStatement = new iam.PolicyStatement({
@@ -105,8 +109,6 @@ export class S3Stack extends Stack {
           }]
         }
       });
-
-    dataBucket.addEventNotification(s3.EventType.OBJECT_CREATED, new s3n.LambdaDestination(split_file_fn), {prefix: '*'});
 
     new CfnOutput(this, 'testBucketArn', { value: dataBucket.bucketArn });
     new CfnOutput(this, 'split_file_fnArn', { value: split_file_fn.functionArn });

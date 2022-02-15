@@ -1,6 +1,6 @@
 [package]
-name = "lambda"
-version = "0.1.0"
+name = "on_upload_event"
+version = "0.0.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -21,6 +21,7 @@ time = "0.3.7"
 tokio = { version = "1.16.1", features = ["full"] }
 tracing = "0.1.30"
 tracing-subscriber = "0.3.8"
+
 
 [[bin]]
 name = "bootstrap"
