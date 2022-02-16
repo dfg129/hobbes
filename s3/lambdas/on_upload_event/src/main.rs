@@ -24,12 +24,24 @@ async fn handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
     info!("[handler-fn] : event is {:?}", event);
 
     let (event, _context) = event.into_parts();
-    //let eventObjectContext = event["getObjectContext"].unwrap_or("ErrorObjCon");
-    let s3_url = event["inputS3Url"].as_str().unwrap_or("Errors3Url");
 
-    info!("handler-fn] : s3_url is {:?}", s3_url);
+    let parsed: Value = serde_json::from_str(&event.to_string())?;
+    info!("handler-fn] : event is {}", &parsed);
 
-    let body = reqwest::get(s3_url)
+    let url  = &parsed["getObjectContext"]["inputS3Url"];
+
+     info!("handler-fn] : url is {}", url.as_str().unwrap());
+
+    info!("------------ make reqwest --------------");
+
+    // let client = reqwest::Client::new();
+    // let res = client.get(url.as_str().unwrap())
+    // .send()
+    // .await?; 
+
+    // let body = 
+
+    let body = reqwest::get(url.as_str().unwrap())
         .await?
         .text()
         .await?;
