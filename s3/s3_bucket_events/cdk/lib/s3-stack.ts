@@ -7,6 +7,7 @@ import * as s3n from 'aws-cdk-lib/aws-s3-notifications';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import * as path from 'path';
 import { RetentionDays } from 'aws-cdk-lib/aws-logs';
+import * as events from 'aws-cdk-lib/aws-events';
 
 export class S3Stack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -20,13 +21,26 @@ export class S3Stack extends Stack {
       autoDeleteObjects: true,
     });
 
-    let parameter = new ssm.StringParameter(this, 'HobbesEventBus', {
+    const bus = new events.EventBus(this, 'hobbes-events', {
+      
+    });
+
+    let parameter = new ssm.StringParameter(this, 'DatafilesBucket', {
       allowedPattern:'.*',
       description: 'Datafiles bucket name',
       parameterName: 'DatafilesBucket',
       tier: ssm.ParameterTier.ADVANCED,
       stringValue: dataBucket.bucketName,
     });
+    
+    let bus_parameter = new ssm.StringParameter(this, 'HobbesEventBus', {
+      allowedPattern:'.*',
+      description: 'Custom hobbes event bus name',
+      parameterName: 'HobbesEventBus',
+      tier: ssm.ParameterTier.ADVANCED,
+      stringValue: bus.eventBusName,
+    });
+
     
     dataBucket.addToResourcePolicy(new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
@@ -52,6 +66,10 @@ export class S3Stack extends Stack {
       logRetention: RetentionDays.ONE_DAY,
     });
 
+    
+
+    bus.grantPutEventsTo(post_upload_event_fn);
+    bus_parameter.grantRead(post_upload_event_fn);
     parameter.grantRead(post_upload_event_fn);
     dataBucket.grantRead(post_upload_event_fn);
 

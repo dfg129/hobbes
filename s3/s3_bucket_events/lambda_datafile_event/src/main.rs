@@ -3,7 +3,10 @@ use lambda_runtime::{service_fn, LambdaEvent, Error};
 use serde_json::{json, Value};
 use tracing::info;
 use aws_config::meta::region::RegionProviderChain;
-// use aws_sdk_s3::Client;
+use aws_sdk_eventbridge::{Client, DateTime};
+use aws_sdk_eventbridge::model::PutEventsRequestEntry;
+use std::time::SystemTime;
+use aws_sdk_ssm;
 
 
 #[tokio::main] 
@@ -40,14 +43,34 @@ async fn handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
 
     let _bucket_name =  get_bucket_name(&ssm_client).await.unwrap();
     
-    let eb_client = aws_sdk_eventbridge::Client::new(&config);
+    let client = Client::new(&config);
 
-    let resp = eb_client
-        .describe_event_bus()
-        .send().await;
+    let dt = DateTime::from(SystemTime::now());
+
+    let detail = "{ \"key1x\": \"value1\", \"key2\": \"value2\" }".to_string();
+    let event_bus_name = get_event_bus_name(&ssm_client).await.unwrap();
+    let resources = vec!["arn:aws:lambda:us-east-1:707338571369:function:S3Stack-LambdaDatafileEventD9747E0A-XHvilRTP7w25".to_string()];
+
+    let entry = PutEventsRequestEntry::builder()
+      .set_time(Some(dt))
+      .set_detail(Some(detail))
+      .set_detail_type(Some("detail-type-this".to_string()))
+      .set_event_bus_name(Some(event_bus_name.to_string()))
+      .set_source(Some("LambdaDatfileEvent".to_string()))
+      .set_trace_header(Some("trace-test".to_string()))
+      .set_resources(Some(resources))
+      .build(); 
+      
+    info!("[handler-fn] : --------   entry  ------  {:?}", &entry); 
+    
+    let entries = Some(vec![entry]);
+
+    
+
+    let resp = client.put_events().set_entries(entries).send().await;
    
         match resp {
-            Ok(buslist) => info!("[handler-fn] ------------------ event buses ----\n {:?} ", buslist),
+            Ok(whatup) => info!("[handler-fn] ------------------ whatup? ----\n {:?} ", whatup),
             Err(e) => info!("[handler-fn] -- not this one: {}", e),
         }
 
@@ -74,6 +97,21 @@ async fn handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
 //     Ok(buffer)
 // }
 
+
+async fn get_event_bus_name(client: &aws_sdk_ssm::Client) -> Option<String> {
+    let resp = client.get_parameter().name("HobbesEventBus").send().await;
+    let name_opt = resp.unwrap();
+    let param_opt = name_opt.parameter;
+
+    let param = param_opt.unwrap();
+   
+    let name = param.value().unwrap();
+
+    info!("[get_event_bus_name] : response is {:?}", name );
+
+    Some(name.to_string())
+}
+
 async fn get_bucket_name(client: &aws_sdk_ssm::Client) -> Option<String> {
     let resp = client.get_parameter().name("DatafilesBucket").send().await;
     let name_opt = resp.unwrap();
@@ -83,7 +121,7 @@ async fn get_bucket_name(client: &aws_sdk_ssm::Client) -> Option<String> {
    
     let name = param.value().unwrap();
 
-    info!("[get-bucket-name] : response is {:?}", name );
+    info!("[get_bucket_name] : response is {:?}", name );
 
     Some(name.to_string())
 }
