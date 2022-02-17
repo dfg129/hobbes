@@ -47,7 +47,7 @@ async fn handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
 
     let dt = DateTime::from(SystemTime::now());
 
-    let detail = "{ \"key1x\": \"value1\", \"key2\": \"value2\" }".to_string();
+    let detail = "{ \"key\": }".to_string();
     let event_bus_name = get_event_bus_name(&ssm_client).await.unwrap();
     let resources = vec!["arn:aws:lambda:us-east-1:707338571369:function:S3Stack-LambdaDatafileEventD9747E0A-XHvilRTP7w25".to_string()];
 

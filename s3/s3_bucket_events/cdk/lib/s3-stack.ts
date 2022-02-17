@@ -66,8 +66,6 @@ export class S3Stack extends Stack {
       logRetention: RetentionDays.ONE_DAY,
     });
 
-    
-
     bus.grantPutEventsTo(post_upload_event_fn);
     bus_parameter.grantRead(post_upload_event_fn);
     parameter.grantRead(post_upload_event_fn);
