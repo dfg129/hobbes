@@ -1,6 +1,0 @@
-[workspace]
-members = [
-    "on_upload_event",
-]
-
-

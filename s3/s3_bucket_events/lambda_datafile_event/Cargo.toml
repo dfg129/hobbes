@@ -1,12 +1,11 @@
 [package]
-name = "on_upload_event"
-version = "0.0.0"
+name = "lambda_datafile_event"
+version = "0.1.1"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 aws-config = "0.6.0"
+aws-sdk-eventbridge = "0.6.0"
 aws-sdk-s3 = "0.6.0"
 aws-sdk-ssm = "0.6.0"
 aws-smithy-http = "0.36.0"
