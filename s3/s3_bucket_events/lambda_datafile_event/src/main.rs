@@ -31,9 +31,11 @@ async fn handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
     let parsed: Value = serde_json::from_str(&event.to_string())?;
     info!("handler-fn] : parsed event is {}", &parsed);
 
-    let key  = &parsed["Records"][0]["s3"]["object"]["key"];
+    let vkey  = &parsed["Records"][0]["s3"]["object"]["key"].to_string();
 
-    info!("handler-fn] : key is {}", key.as_str().unwrap());
+    let key: String = serde_json::from_str(vkey).unwrap();
+
+    info!("handler-fn] : key is {}", key);
 
 
     let region_provider = RegionProviderChain::default_provider().or_else("us-east-1");
@@ -47,13 +49,15 @@ async fn handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
 
     let dt = DateTime::from(SystemTime::now());
 
-    let detail = "{ \"key\": }".to_string();
+    let detail = format!("{}{}{}", r#""{ \"key\": \""#, key, r#"\"}""#);
+    info!("[handler-fn] : -- -- -- {} -- -- -- ", detail);
+    
     let event_bus_name = get_event_bus_name(&ssm_client).await.unwrap();
     let resources = vec!["arn:aws:lambda:us-east-1:707338571369:function:S3Stack-LambdaDatafileEventD9747E0A-XHvilRTP7w25".to_string()];
 
     let entry = PutEventsRequestEntry::builder()
       .set_time(Some(dt))
-      .set_detail(Some(detail))
+      .set_detail(Some("{ \"key\": \"DataFile.csv\"}".to_string()))
       .set_detail_type(Some("detail-type-this".to_string()))
       .set_event_bus_name(Some(event_bus_name.to_string()))
       .set_source(Some("LambdaDatfileEvent".to_string()))

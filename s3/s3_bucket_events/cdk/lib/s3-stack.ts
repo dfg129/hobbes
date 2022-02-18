@@ -1,4 +1,4 @@
-import { RemovalPolicy, Stack, StackProps, CfnOutput, Aws} from 'aws-cdk-lib';
+import { RemovalPolicy, Stack, StackProps, CfnOutput, Aws, cloud_assembly_schema} from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as iam from 'aws-cdk-lib/aws-iam';
@@ -8,6 +8,8 @@ import * as ssm from 'aws-cdk-lib/aws-ssm';
 import * as path from 'path';
 import { RetentionDays } from 'aws-cdk-lib/aws-logs';
 import * as events from 'aws-cdk-lib/aws-events';
+import * as targets  from 'aws-cdk-lib/aws-events-targets';
+
 
 export class S3Stack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -21,9 +23,28 @@ export class S3Stack extends Stack {
       autoDeleteObjects: true,
     });
 
-    const bus = new events.EventBus(this, 'hobbes-events', {
-      
+    const bus = new events.EventBus(this, 'hobbes-events', {});
+
+    const eventHandler = new lambda.Function(this, 'MyFunction', {
+      code: lambda.Code.fromAsset(path.join(__dirname, '../resource')),
+      runtime: lambda.Runtime.NODEJS_12_X,
+      handler: 'index.handler',
     });
+
+    const eventRule = new events.Rule(this, 'DataUploadRule', {
+      description: "Data upload occurred",
+      enabled: true,
+      eventBus: bus,
+    });
+
+    eventRule.addEventPattern(
+      {
+        "source": ["aws.lambda"]
+      }
+    );
+
+    eventRule.addTarget(new targets.LambdaFunction(eventHandler));
+
 
     let parameter = new ssm.StringParameter(this, 'DatafilesBucket', {
       allowedPattern:'.*',
