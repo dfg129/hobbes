@@ -1,0 +1,17 @@
+[package]
+name = "lambda_data_s3_upload"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+lambda_runtime = { git = "https://github.com/awslabs/aws-lambda-rust-runtime.git" }
+tokio = { version = "1.16.1", features = ["full"] }
+tracing = "0.1.30"
+tracing-subscriber = "0.3.8"
+event_fired_on_data_put = { path = "../handlers/event_fired_on_data_put" }
+
+[[bin]]
+name = "bootstrap"
+path = "src/main.rs"

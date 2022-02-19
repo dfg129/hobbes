@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "lambda_data_s3_upload",
+    "handlers/event_fired_on_data_put",
+]

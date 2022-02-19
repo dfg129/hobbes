@@ -15,7 +15,7 @@ export class S3Stack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const dataBucket = new s3.Bucket(this, 'DatafileBucket', {
+    const dataBucket = new s3.Bucket(this, 'DatafilesBucket', {
       encryption: s3.BucketEncryption.S3_MANAGED,
       enforceSSL: true,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
@@ -23,45 +23,13 @@ export class S3Stack extends Stack {
       autoDeleteObjects: true,
     });
 
-    const bus = new events.EventBus(this, 'hobbes-events', {});
-
-    const eventHandler = new lambda.Function(this, 'MyFunction', {
-      code: lambda.Code.fromAsset(path.join(__dirname, '../resource')),
-      runtime: lambda.Runtime.NODEJS_12_X,
-      handler: 'index.handler',
-    });
-
-    const eventRule = new events.Rule(this, 'DataUploadRule', {
-      description: "Data upload occurred",
-      enabled: true,
-      eventBus: bus,
-    });
-
-    eventRule.addEventPattern(
-      {
-        "source": ["aws.lambda"]
-      }
-    );
-
-    eventRule.addTarget(new targets.LambdaFunction(eventHandler));
-
-
-    let parameter = new ssm.StringParameter(this, 'DatafilesBucket', {
+    let parameter = new ssm.StringParameter(this, 'DatafilesBucketParam', {
       allowedPattern:'.*',
       description: 'Datafiles bucket name',
       parameterName: 'DatafilesBucket',
       tier: ssm.ParameterTier.ADVANCED,
       stringValue: dataBucket.bucketName,
     });
-    
-    let bus_parameter = new ssm.StringParameter(this, 'HobbesEventBus', {
-      allowedPattern:'.*',
-      description: 'Custom hobbes event bus name',
-      parameterName: 'HobbesEventBus',
-      tier: ssm.ParameterTier.ADVANCED,
-      stringValue: bus.eventBusName,
-    });
-
     
     dataBucket.addToResourcePolicy(new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
@@ -87,8 +55,17 @@ export class S3Stack extends Stack {
       logRetention: RetentionDays.ONE_DAY,
     });
 
-    bus.grantPutEventsTo(post_upload_event_fn);
+    const bus_parameter = ssm.StringParameter.fromStringParameterName(this, 'EventBusParam', 'HobbesEventBus');
     bus_parameter.grantRead(post_upload_event_fn);
+
+    const event_bus_name=  ssm.StringParameter.fromStringParameterAttributes(this, 'HobbesEventBusParam', {
+      parameterName: 'HobbesEventBus',
+    }).stringValue;
+
+    const event_bus = events.EventBus.fromEventBusName(this, 'HobbesEventBus', event_bus_name);
+    
+    event_bus.grantPutEventsTo(post_upload_event_fn);
+    
     parameter.grantRead(post_upload_event_fn);
     dataBucket.grantRead(post_upload_event_fn);
 

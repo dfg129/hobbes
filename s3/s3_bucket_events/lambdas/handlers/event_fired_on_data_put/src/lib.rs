@@ -1,5 +1,4 @@
-// use aws_smithy_http::byte_stream::AggregatedBytes;
-use lambda_runtime::{service_fn, LambdaEvent, Error};
+use lambda_runtime::{LambdaEvent, Error};
 use serde_json::{json, Value};
 use tracing::info;
 use aws_config::meta::region::RegionProviderChain;
@@ -9,21 +8,7 @@ use std::time::SystemTime;
 use aws_sdk_ssm;
 
 
-#[tokio::main] 
-async fn main() -> Result<(), Error> {
-    tracing_subscriber::fmt()
-    .with_max_level(tracing::Level::INFO)
-    .with_ansi(false)
-    .without_time()
-    .init();
-
-    let func = service_fn(handler);
-    lambda_runtime::run(func).await?;
-
-    Ok(())
-}
-
-async fn handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
+pub async fn  handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
     info!("[handler-fn] : upload event is {:?}", event);
 
     let (event, _context) = event.into_parts();
@@ -69,8 +54,6 @@ async fn handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
     
     let entries = Some(vec![entry]);
 
-    
-
     let resp = client.put_events().set_entries(entries).send().await;
    
         match resp {
@@ -78,29 +61,8 @@ async fn handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
             Err(e) => info!("[handler-fn] -- not this one: {}", e),
         }
 
-
-    //let put_events = aws_sdk_eventbridge::Client::put_events(&eb_client);
-
-    //put_event.send(); 
-
-//    let file = get_object(&s3_client, &bucket_name, key).await?;
-
- //   info!("[handler-fn] : Read the s3 object {:?}", file);
-
     Ok(json!({"message": format!("Hey now {}", "hobbes")}))
 }
-
-// get s3 file object to parse 
-// async fn get_object(client: &Client, bucket: &str, key: &str) -> Result<AggregatedBytes, Error> {
-//     let resp = client.get_object().bucket(bucket).key(key).send().await?;
-//     let data = resp.body.collect().await;
-
-//     let buffer = data.unwrap();
-    
-//     info!("[get_object-fn] : data is {:?}", &buffer);
-//     Ok(buffer)
-// }
-
 
 async fn get_event_bus_name(client: &aws_sdk_ssm::Client) -> Option<String> {
     let resp = client.get_parameter().name("HobbesEventBus").send().await;
@@ -130,3 +92,12 @@ async fn get_bucket_name(client: &aws_sdk_ssm::Client) -> Option<String> {
     Some(name.to_string())
 }
 
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
+        let result = 2 + 2;
+        assert_eq!(result, 4);
+    }
+}
