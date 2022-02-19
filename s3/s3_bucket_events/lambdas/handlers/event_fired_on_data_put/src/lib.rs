@@ -1,4 +1,5 @@
-use lambda_runtime::{LambdaEvent, Error};
+use lambda_runtime::{LambdaEvent, Error}
+;
 use serde_json::{json, Value};
 use tracing::info;
 use aws_config::meta::region::RegionProviderChain;
@@ -34,7 +35,7 @@ pub async fn  handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
 
     let dt = DateTime::from(SystemTime::now());
 
-    let detail = format!("{}{}{}", r#""{ \"key\": \""#, key, r#"\"}""#);
+    let detail = format!("{}{}{}", r#"{ "key": ""#, key, r#""}"#);
     info!("[handler-fn] : -- -- -- {} -- -- -- ", detail);
     
     let event_bus_name = get_event_bus_name(&ssm_client).await.unwrap();
@@ -42,7 +43,7 @@ pub async fn  handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
 
     let entry = PutEventsRequestEntry::builder()
       .set_time(Some(dt))
-      .set_detail(Some("{ \"key\": \"DataFile.csv\"}".to_string()))
+      .set_detail(Some(detail.to_string()))
       .set_detail_type(Some("detail-type-this".to_string()))
       .set_event_bus_name(Some(event_bus_name.to_string()))
       .set_source(Some("LambdaDatfileEvent".to_string()))
@@ -50,8 +51,8 @@ pub async fn  handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
       .set_resources(Some(resources))
       .build(); 
       
-    info!("[handler-fn] : --------   entry  ------  {:?}", &entry); 
-    
+    info!("[handler-fn] : --------   entry 1 ------  {:?}", &entry); 
+
     let entries = Some(vec![entry]);
 
     let resp = client.put_events().set_entries(entries).send().await;

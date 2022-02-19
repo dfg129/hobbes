@@ -42,7 +42,7 @@ export class S3Stack extends Stack {
       resources: [`${dataBucket.bucketArn}/*`],
     }));
     
-    let docker_dir = path.join(__dirname, '../../lambda_datafile_event');
+    let docker_dir = path.join(__dirname, '../../lambdas');
 
     let post_upload_event_fn = new lambda.DockerImageFunction(this, 'LambdaDatafileEvent', {
       code: lambda.DockerImageCode.fromImageAsset(docker_dir),
