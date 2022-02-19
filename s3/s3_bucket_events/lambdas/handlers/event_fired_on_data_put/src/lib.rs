@@ -23,7 +23,6 @@ pub async fn  handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
 
     info!("handler-fn] : key is {}", key);
 
-
     let region_provider = RegionProviderChain::default_provider().or_else("us-east-1");
     let config = aws_config::from_env().region(region_provider).load().await;
         
@@ -36,7 +35,6 @@ pub async fn  handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
     let dt = DateTime::from(SystemTime::now());
 
     let detail = format!("{}{}{}", r#"{ "key": ""#, key, r#""}"#);
-    info!("[handler-fn] : -- -- -- {} -- -- -- ", detail);
     
     let event_bus_name = get_event_bus_name(&ssm_client).await.unwrap();
     let resources = vec!["arn:aws:lambda:us-east-1:707338571369:function:S3Stack-LambdaDatafileEventD9747E0A-XHvilRTP7w25".to_string()];
@@ -51,18 +49,16 @@ pub async fn  handler(event: LambdaEvent<Value>) -> Result<Value, Error> {
       .set_resources(Some(resources))
       .build(); 
       
-    info!("[handler-fn] : --------   entry 1 ------  {:?}", &entry); 
-
     let entries = Some(vec![entry]);
 
     let resp = client.put_events().set_entries(entries).send().await;
    
         match resp {
-            Ok(whatup) => info!("[handler-fn] ------------------ whatup? ----\n {:?} ", whatup),
-            Err(e) => info!("[handler-fn] -- not this one: {}", e),
+            Ok(entry) => info!("[handler-fn] ----successful event entry ----\n {:?} ", entry,
+            Err(e) => info!("[handler-fn] -- unsuccessful event entry : {}", e),
         }
 
-    Ok(json!({"message": format!("Hey now {}", "hobbes")}))
+    Ok(json!({"message": format!("Hey now {}", "success")}))
 }
 
 async fn get_event_bus_name(client: &aws_sdk_ssm::Client) -> Option<String> {
@@ -71,10 +67,7 @@ async fn get_event_bus_name(client: &aws_sdk_ssm::Client) -> Option<String> {
     let param_opt = name_opt.parameter;
 
     let param = param_opt.unwrap();
-   
     let name = param.value().unwrap();
-
-    info!("[get_event_bus_name] : response is {:?}", name );
 
     Some(name.to_string())
 }
@@ -85,10 +78,7 @@ async fn get_bucket_name(client: &aws_sdk_ssm::Client) -> Option<String> {
     let param_opt = name_opt.parameter;
 
     let param = param_opt.unwrap();
-   
     let name = param.value().unwrap();
-
-    info!("[get_bucket_name] : response is {:?}", name );
 
     Some(name.to_string())
 }
