@@ -6,21 +6,22 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = "0.6.0"
-aws-sdk-eventbridge = "0.6.0"
-aws-sdk-s3 = "0.6.0"
-aws-sdk-ssm = "0.6.0"
-aws_lambda_events = "0.5.0"
+aws-config = "0.8.0"
+aws-sdk-eventbridge = "0.8.0"
+aws-sdk-s3 = "0.8.0"
+aws-sdk-ssm = "0.8.0"
+aws_lambda_events = "0.6.1"
 chrono = "0.4.19"
 datetime = "0.5.2"
 env_logger = "0.9.0"
-lambda_runtime = { git = "https://github.com/awslabs/aws-lambda-rust-runtime.git" }
+lambda_runtime = { version = "0.5.0", options = true }
+# lambda_runtime = { git = "https://github.com/awslabs/aws-lambda-rust-runtime.git" }
 log = "0.4.14"
 output = "0.6.2"
 reqwest = "0.11.9"
 serde = "1.0.136"
-serde_json = "1.0.78"
-tokio = { version = "1.16.1", features = ["full"] }
-tracing = "0.1.30"
-tracing-subscriber = "0.3.8"
+serde_json = "1.0.79"
+tokio = { version = "1.17.0", features = ["full"] }
+tracing = "0.1.31"
+tracing-subscriber = "0.3.9"
 
